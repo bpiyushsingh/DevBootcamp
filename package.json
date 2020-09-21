@@ -1,0 +1,20 @@
+{
+  "name": "project-2",
+  "version": "1.0.0",
+  "description": "Udemy Project",
+  "main": "server.js",
+  "scripts": {
+    "start": "NODE_ENV=production node server.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "Piyush Singh",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
+  }
+}
