@@ -1,12 +1,17 @@
-const express = require('express');
+const colors = require('colors');
 const dotenv = require('dotenv');
+const express = require('express');
 const morgan = require('morgan');
-
-//Load Routes
-const bootcamps = require('./routes/bootcamp');
+const connectDB = require('./config/db')
 
 //Load env vars
 dotenv.config({ path: './config/config.env' });
+
+//Connect to database
+connectDB();
+
+//Load Routes
+const bootcamps = require('./routes/bootcamp');
 
 const app = express();
 
@@ -16,13 +21,17 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
+//Body parser
+app.use(express.json());
+
 app.use('/api/v1/bootcamps', bootcamps);
 
-app.get('/api/v1/bootcamps', (req, res) => {
-  res.status(200).json({ success: true, msg: `Show bootcamps` });
-});
-
-app.listen(
+const server = app.listen(
   PORT,
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold)
 );
+
+process.on('unhandledRejection', (err, promise) => {
+  console.log(`Error: ${err.message}`.red.bold);
+  server.close(() => process.exit(1));
+});
