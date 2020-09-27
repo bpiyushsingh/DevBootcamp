@@ -6,6 +6,7 @@ const fileupload = require('express-fileupload');
 const morgan = require('morgan');
 const path = require('path');
 const connectDB = require('./config/db');
+const cookieParser = require('cookie-parser');
 
 //Load env vars
 dotenv.config({ path: './config/config.env' });
@@ -22,8 +23,11 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
-//Body parser
+// Body parser
 app.use(express.json());
+
+// Cookie parser
+app.use(cookieParser());
 
 // Dev logging middleware
 if (process.env.NODE_ENV === 'development') {
