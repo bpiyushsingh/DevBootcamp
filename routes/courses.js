@@ -1,5 +1,4 @@
 const express = require('express');
-const router = express.Router({ mergeParams: true });
 
 const {
     getCourses,
@@ -8,6 +7,8 @@ const {
     updateCourse,
     deleteCourse
 } = require('../controller/courses');
+
+const router = express.Router({ mergeParams: true });
 
 const Course = require('../models/Course');
 const advancedResult = require('../middleware/advancedResult');

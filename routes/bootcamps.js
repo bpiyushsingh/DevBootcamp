@@ -1,5 +1,4 @@
 const express = require('express');
-const router = express.Router();
 
 const {
   getBootcamps,
@@ -10,6 +9,8 @@ const {
   getBootcampsInRadius,
   bootcampPhotoUpload
 } = require('../controller/bootcamps');
+
+const router = express.Router();
 
 const Bootcamp = require('../models/Bootcamp');
 const advancedResult = require('../middleware/advancedResult');
