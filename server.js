@@ -2,8 +2,10 @@ const colors = require('colors');
 const dotenv = require('dotenv');
 const errorHandler = require('./middleware/error');
 const express = require('express');
+const fileupload = require('express-fileupload');
 const morgan = require('morgan');
-const connectDB = require('./config/db')
+const path = require('path');
+const connectDB = require('./config/db');
 
 //Load env vars
 dotenv.config({ path: './config/config.env' });
@@ -19,13 +21,21 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
+//Body parser
+app.use(express.json());
+
+// Dev logging middleware
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-//Body parser
-app.use(express.json());
+// File uploading
+app.use(fileupload());
 
+// Set static folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Mount Routers
 app.use('/api/v1/bootcamps', bootcamps);
 app.use('/api/v1/courses', courses);
 
